@@ -52,7 +52,7 @@
     "prettier": "^2.3.2"
   },
   "description": "node.js cli for mod development and publishing - fluffy style",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fluffy-mods/mod-cli.git"
