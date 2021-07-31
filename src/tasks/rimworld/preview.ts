@@ -1,5 +1,5 @@
+import { generatePreviewImage } from "@fluffy-mods/preview-generator";
 import path from "path";
-import { generatePreviewImage } from "preview-generator";
 
 import { Context } from "../../core/context";
 import { Task } from "../../core/log";
