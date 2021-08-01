@@ -1,7 +1,7 @@
 import fs from "fs-extra";
 import micromatch from "micromatch";
 
-import { Task } from "../core/log";
+import { Task } from "../core/log.js";
 
 export async function clearDirectory(dir: string) {
     const task = await Task.Long("clear out directory", dir);

@@ -1,9 +1,6 @@
 import { CommandModule } from "yargs";
-import {
-    createBranch,
-    setDefaultBranch,
-    setUpstreamBranch,
-} from "../tasks/git";
+
+import { createBranch, setDefaultBranch, setUpstreamBranch } from "../tasks/git.js";
 
 const createBranchCommand: CommandModule<
     {},

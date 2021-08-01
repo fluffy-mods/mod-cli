@@ -1,13 +1,13 @@
 import { Octokit } from "@octokit/rest";
-import fs from "fs";
-import merge from "lodash/merge";
+import merge from "lodash/merge.js";
+import { fs } from "mz";
 import Git, { SimpleGit } from "simple-git";
 
-import { ReleaseOptions } from "../commands/release";
-import { AuthorInfo, ChangelogEntry, Context, Contribution, GitInfo, ModInfo, Version } from "../core/context";
-import { Task } from "../core/log";
-import { readSystemConfig } from "./context";
-import { createVersion, versionString } from "./version";
+import { ReleaseOptions } from "../commands/release.js";
+import { AuthorInfo, ChangelogEntry, Context, Contribution, GitInfo, ModInfo, Version } from "../core/context.js";
+import { Task } from "../core/log.js";
+import { readSystemConfig } from "./context.js";
+import { createVersion, versionString } from "./version.js";
 
 export async function getStatus(dir: string = process.cwd()) {
     const git = Git(dir);

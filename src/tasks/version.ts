@@ -1,5 +1,5 @@
-import { Context, Version } from "../core/context";
-import { Task } from "../core/log";
+import { Context, Version } from "../core/context.js";
+import { Task } from "../core/log.js";
 
 export function checkVersion(version: Partial<Version>): Required<Version> {
     version ??= {};

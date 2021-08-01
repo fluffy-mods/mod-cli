@@ -1,9 +1,9 @@
 import inquirer from "inquirer";
 import { CommandModule } from "yargs";
 
-import { Attribution } from "../core/context";
-import { Task } from "../core/log";
-import { getContext, writeModInfo } from "../tasks/context";
+import { Attribution } from "../core/context.js";
+import { Task } from "../core/log.js";
+import { getContext, writeModInfo } from "../tasks/context.js";
 
 export const AttributeCommand: CommandModule = {
     command: "attribute",

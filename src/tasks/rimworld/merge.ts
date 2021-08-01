@@ -1,15 +1,15 @@
 import fs, { mkdir } from "fs/promises";
-import isEqual from "lodash/isEqual";
-import uniqWith from "lodash/uniqWith";
+import isEqual from "lodash/isEqual.js";
+import uniqWith from "lodash/uniqWith.js";
 import path from "path";
 import semver from "semver";
 import Git from "simple-git";
 import { convert } from "xmlbuilder2";
 
-import { Context } from "../../core/context";
-import { Task } from "../../core/log";
-import { getFiles } from "../../core/utils";
-import { About, List, ModDependency, Versioned, writeAbout } from "./about";
+import { Context } from "../../core/context.js";
+import { Task } from "../../core/log.js";
+import { getFiles } from "../../core/utils.js";
+import { About, List, ModDependency, Versioned, writeAbout } from "./about.js";
 
 /**
  * Multiple releases merge strategy using Git branches.

@@ -1,7 +1,8 @@
-import { Context, Version } from "../../core/context";
-import { createVersion } from "../version";
 import fs from "fs/promises";
 import path from "path";
+
+import { Context, Version } from "../../core/context.js";
+import { createVersion } from "../version.js";
 
 export async function getRimWorldVersion({ game }: Context): Promise<Version> {
     const versionPath = path.join(game.targetDir, "..", "Version.txt");

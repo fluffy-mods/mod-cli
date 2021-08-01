@@ -2,9 +2,9 @@ import inquirer from "inquirer";
 import uuid from "uuid";
 import { CommandModule } from "yargs";
 
-import { Contribution } from "../core/context";
-import { getContext, writeModInfo } from "../tasks/context";
-import { updateContributors } from "../tasks/git";
+import { Contribution } from "../core/context.js";
+import { getContext, writeModInfo } from "../tasks/context.js";
+import { updateContributors } from "../tasks/git.js";
 
 export const ContributeCommand: CommandModule = {
     command: ["contribute", "contrib"],
@@ -121,6 +121,30 @@ export const ContributeCommand: CommandModule = {
                     await writeModInfo(mod, baseDir);
                 }
             )
+            .command({
+                command: ["list", "ls"],
+                describe: "list contributions",
+                handler: async (yargs: any) => {
+                    const { mod } = await getContext();
+                    const contributions = mod.contributions.filter(
+                        (c) => !c.suppressed
+                    );
+                    if (!contributions.length) {
+                        console.log("No contributions.");
+                        return;
+                    }
+                    console.log(
+                        contributions
+                            .map(
+                                (c) =>
+                                    `${c.hash.substr(0, 6)} :: ${c.author} - ${
+                                        c.description
+                                    }`
+                            )
+                            .join("\n")
+                    );
+                },
+            })
             .demandCommand(1)
             .help();
     },

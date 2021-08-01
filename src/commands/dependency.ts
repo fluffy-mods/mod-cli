@@ -1,12 +1,12 @@
 import inquirer from "inquirer";
-import isEqualWith from "lodash/isEqualWith";
-import fs from "mz/fs";
+import isEqualWith from "lodash/isEqualWith.js";
+import { fs } from "mz";
 import path from "path";
 import { CommandModule } from "yargs";
 
-import { Task } from "../core/log";
-import { findDown } from "../core/utils";
-import { getContext, writeModInfo } from "../tasks/context";
+import { Task } from "../core/log.js";
+import { findDown } from "../core/utils.js";
+import { getContext, writeModInfo } from "../tasks/context.js";
 
 export const DependencyCommand: CommandModule = {
     command: ["dependency", "dep"],

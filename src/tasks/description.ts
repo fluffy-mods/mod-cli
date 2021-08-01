@@ -4,10 +4,10 @@ import fs from "fs-extra";
 import handlebars from "handlebars";
 import path from "path";
 
-import { Context } from "../core/context";
-import { Task } from "../core/log";
-import { findDown } from "../core/utils";
-import { getChangelog as getRawChangeLog } from "./git";
+import { Context } from "../core/context.js";
+import { Task } from "../core/log.js";
+import { findDown } from "../core/utils.js";
+import { getChangelog as getRawChangeLog } from "./git.js";
 
 export type DistributionEnvironment = "workshop" | "github" | "unity";
 

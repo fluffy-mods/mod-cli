@@ -2,10 +2,10 @@ import archiver from "archiver";
 import fs from "fs";
 import path from "path";
 
-import { Context } from "../core/context";
-import { Task } from "../core/log";
-import { filesize } from "../core/utils";
-import { versionString } from "./version";
+import { Context } from "../core/context.js";
+import { Task } from "../core/log.js";
+import { filesize } from "../core/utils.js";
+import { versionString } from "./version.js";
 
 export async function createArchive({
     mod,

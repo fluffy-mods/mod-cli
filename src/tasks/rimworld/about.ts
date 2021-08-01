@@ -8,10 +8,10 @@ import {
     isLoadAfterDependency,
     isLoadBeforeDependency,
     isRequiredDependency,
-} from "../../core/context";
-import { Task } from "../../core/log";
-import { getUnityDescription } from "../description";
-import { getRimWorldVersion } from "./version";
+} from "../../core/context.js";
+import { Task } from "../../core/log.js";
+import { getUnityDescription } from "../description.js";
+import { getRimWorldVersion } from "./version.js";
 
 export interface Versioned<T> {
     [version: string]: T | undefined;

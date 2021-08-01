@@ -1,10 +1,10 @@
 import { exec } from "child_process";
 import { basename, relative } from "path";
 
-import { Context } from "../core/context";
-import { Task } from "../core/log";
-import { findDown } from "../core/utils";
-import { versionString } from "./version";
+import { Context } from "../core/context.js";
+import { Task } from "../core/log.js";
+import { findDown } from "../core/utils.js";
+import { versionString } from "./version.js";
 
 export async function buildModSolution({
     build: { baseDir, buildTarget },

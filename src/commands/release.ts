@@ -1,10 +1,10 @@
 import fs from "fs-extra";
 import { CommandModule } from "yargs";
 
-import { createArchive } from "../tasks/archive";
-import { getContext, updateModInfo } from "../tasks/context";
-import { updateReadme } from "../tasks/description";
-import { buildModSolution, formatProject, updateProjectReferences } from "../tasks/dotnet";
+import { createArchive } from "../tasks/archive.js";
+import { getContext, updateModInfo } from "../tasks/context.js";
+import { updateReadme } from "../tasks/description.js";
+import { buildModSolution, formatProject, updateProjectReferences } from "../tasks/dotnet.js";
 import {
     checkUncommitedChanges,
     checkUnpushedCommits,
@@ -12,12 +12,12 @@ import {
     createGitHubRelease,
     updateChangeLog,
     updateContributions,
-} from "../tasks/git";
-import { clearDirectory, copyDirectory } from "../tasks/io";
-import { updateAbout } from "../tasks/rimworld/about";
-import { mergeVersions as mergeVersions } from "../tasks/rimworld/merge";
-import { bumpVersion } from "../tasks/version";
-import { steamWorkshopUpdate } from "../tasks/workshop";
+} from "../tasks/git.js";
+import { clearDirectory, copyDirectory } from "../tasks/io.js";
+import { updateAbout } from "../tasks/rimworld/about.js";
+import { mergeVersions as mergeVersions } from "../tasks/rimworld/merge.js";
+import { bumpVersion } from "../tasks/version.js";
+import { steamWorkshopUpdate } from "../tasks/workshop.js";
 
 export interface ReleaseOptions {
     "skip-bump"?: boolean;

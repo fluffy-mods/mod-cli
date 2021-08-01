@@ -1,15 +1,15 @@
-#!/usr/bin/env -S node
+#!/usr/bin/env node
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import { AttributeCommand } from "./commands/attribute";
-import { BranchCommand } from "./commands/branch";
-import { ConfigCommand } from "./commands/config";
-import { ContributeCommand } from "./commands/contribute";
-import { DependencyCommand } from "./commands/dependency";
-import { ReleaseCommand } from "./commands/release";
-import { TestCommand } from "./commands/test";
-import { UpdateCommand } from "./commands/update";
+import { AttributeCommand } from "./commands/attribute.js";
+import { BranchCommand } from "./commands/branch.js";
+import { ConfigCommand } from "./commands/config.js";
+import { ContributeCommand } from "./commands/contribute.js";
+import { DependencyCommand } from "./commands/dependency.js";
+import { ReleaseCommand } from "./commands/release.js";
+import { TestCommand } from "./commands/test.js";
+import { UpdateCommand } from "./commands/update.js";
 
 yargs(hideBin(process.argv))
     .scriptName("mod")

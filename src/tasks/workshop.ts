@@ -2,9 +2,9 @@ import { spawn } from "child_process";
 import fs from "fs/promises";
 import path from "path";
 
-import { Context } from "../core/context";
-import { Task } from "../core/log";
-import { getChangelog, getWorkshopDescription } from "./description";
+import { Context } from "../core/context.js";
+import { Task } from "../core/log.js";
+import { getChangelog, getWorkshopDescription } from "./description.js";
 
 export async function steamWorkshopUpdate(context: Context): Promise<void> {
     const { build, system: config } = context;

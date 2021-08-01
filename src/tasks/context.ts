@@ -1,10 +1,10 @@
 import fs from "fs-extra";
 import path from "path";
 
-import { BuildInfo, ConfigFileNames, Context, GameConfig, ModInfo, SystemConfig } from "../core/context";
-import { Task } from "../core/log";
-import { findUp } from "../core/utils";
-import { getGitInfo } from "./git";
+import { BuildInfo, ConfigFileNames, Context, GameConfig, ModInfo, SystemConfig } from "../core/context.js";
+import { Task } from "../core/log.js";
+import { findUp } from "../core/utils.js";
+import { getGitInfo } from "./git.js";
 
 async function getModInfoPath(dir?: string) {
     return findUp(ConfigFileNames.mod, dir);

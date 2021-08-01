@@ -1,11 +1,11 @@
-// import { Boudewijn } from "boudewijn";
 import { Boudewijn } from "boudewijn";
 import chalk from "chalk";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import relativeTime from "dayjs/plugin/relativeTime.js";
 
-import { colours } from "./context";
+import { colours } from "./context.js";
 
+// import { Boudewijn } from "boudewijn";
 dayjs.extend(relativeTime);
 
 type Status = "success" | "info" | "warning" | "danger";

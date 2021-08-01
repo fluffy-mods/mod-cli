@@ -1,15 +1,15 @@
 import fs from "fs-extra";
 import { CommandModule } from "yargs";
 
-import { getContext, updateModInfo } from "../tasks/context";
-import { getGithubDescription, getUnityDescription, getWorkshopDescription } from "../tasks/description";
-import { buildModSolution } from "../tasks/dotnet";
-import { getChangelog, gitCommitAll, setDefaultBranch, updateChangeLog, updateContributions } from "../tasks/git";
-import { clearDirectory, copyDirectory } from "../tasks/io";
-import { updateAbout } from "../tasks/rimworld/about";
-import { mergeVersions } from "../tasks/rimworld/merge";
-import { updatePreview } from "../tasks/rimworld/preview";
-import { steamWorkshopUpdate } from "../tasks/workshop";
+import { getContext, updateModInfo } from "../tasks/context.js";
+import { getGithubDescription, getUnityDescription, getWorkshopDescription } from "../tasks/description.js";
+import { buildModSolution } from "../tasks/dotnet.js";
+import { getChangelog, gitCommitAll, setDefaultBranch, updateChangeLog, updateContributions } from "../tasks/git.js";
+import { clearDirectory, copyDirectory } from "../tasks/io.js";
+import { updateAbout } from "../tasks/rimworld/about.js";
+import { mergeVersions } from "../tasks/rimworld/merge.js";
+import { updatePreview } from "../tasks/rimworld/preview.js";
+import { steamWorkshopUpdate } from "../tasks/workshop.js";
 
 export const TestCommand: CommandModule = {
     command: "test",

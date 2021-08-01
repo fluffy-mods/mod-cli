@@ -1,14 +1,14 @@
 import fs from "fs-extra";
 import { CommandModule } from "yargs";
 
-import { Version } from "../core/context";
-import { getContext, updateModInfo } from "../tasks/context";
-import { updateReadme } from "../tasks/description";
-import { buildModSolution, formatProject, updateProjectReferences } from "../tasks/dotnet";
-import { updateChangeLog, updateContributions } from "../tasks/git";
-import { clearDirectory, copyDirectory } from "../tasks/io";
-import { updateAbout } from "../tasks/rimworld/about";
-import { bumpVersion } from "../tasks/version";
+import { Version } from "../core/context.js";
+import { getContext, updateModInfo } from "../tasks/context.js";
+import { updateReadme } from "../tasks/description.js";
+import { buildModSolution, formatProject, updateProjectReferences } from "../tasks/dotnet.js";
+import { updateChangeLog, updateContributions } from "../tasks/git.js";
+import { clearDirectory, copyDirectory } from "../tasks/io.js";
+import { updateAbout } from "../tasks/rimworld/about.js";
+import { bumpVersion } from "../tasks/version.js";
 
 interface UpdateOptions {
     "no-build"?: boolean;
