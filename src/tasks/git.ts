@@ -86,10 +86,10 @@ export async function updateChangeLog({ mod, build: { baseDir } }: Context) {
                     .join("\n")
             );
         } else {
-            await task.inform("no new changes");
+            await task.info("no new changes");
         }
     } catch (e) {
-        await task.failure(e);
+        await task.danger(e);
     }
 }
 
@@ -116,7 +116,7 @@ export async function createBranch(
         await git.raw("checkout", "-b", branch);
         await task.success();
     } catch (e) {
-        await task.failure(e);
+        await task.danger(e);
     }
     if (upstream) {
         await setUpstreamBranch(branch, dir);
@@ -146,7 +146,7 @@ export async function setUpstreamBranch(
         }
         await task.success(`origin/${branch}`);
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
         throw err;
     }
 }
@@ -198,7 +198,7 @@ export async function createGitHubRelease(
         });
         await task.success(archiveResponse.data.browser_download_url);
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
         throw err;
     }
 }
@@ -238,7 +238,7 @@ export async function setDefaultBranch(
         });
         await task.success(`default branch set to ${branch}`);
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
         process.exit(1);
     }
 }
@@ -290,7 +290,7 @@ export async function getGitInfo(
             );
         }
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
         process.exit(1);
     }
 }
@@ -360,9 +360,11 @@ export async function checkUnpushedCommits(
 
         if (status.ahead) {
             if (pushCommits) {
-                await task.warn(`forced to continue despits unpushed commits.`);
+                await task.warning(
+                    `forced to continue despits unpushed commits.`
+                );
                 await git.push();
-                await task.inform(`pushed ${status.ahead} commits`);
+                await task.info(`pushed ${status.ahead} commits`);
             } else {
                 throw new Error(
                     `local branch is ${status.ahead} commits ahead of remote`
@@ -376,25 +378,32 @@ export async function checkUnpushedCommits(
         }
         await task.success("no unpushed commits");
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
         process.exit(1);
     }
 }
 
-export async function createAndPushReleaseCommit({
+export async function createReleaseCommit({
     build: { baseDir },
     mod,
-}: Context): Promise<void> {
+}: Context) {
+    const task = await Task.Long("create release commit");
+    const version = versionString(mod.version);
+    const message = `release v${version}`;
+    const commit = await gitCommitAll(baseDir, message);
+    await task.success(`commit '${commit.commit}' created`);
+}
+
+export async function createAndPushReleaseCommit(
+    context: Context
+): Promise<void> {
     const task = await Task.Long("create and push release commit");
     try {
-        const version = versionString(mod.version);
-        const message = `release v${version}`;
-        const commit = await gitCommitAll(baseDir, message);
-        await task.success(`commit '${commit.commit}' created`);
-        const push = await gitPush(baseDir);
+        await createReleaseCommit(context);
+        const push = await gitPush(context.build.baseDir);
         await task.success(`push completed:\n- ${push.pushed.join("\n- ")}`);
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
         process.exit(1);
     }
 }
@@ -402,7 +411,7 @@ export async function createAndPushReleaseCommit({
 // get git status, then commit all changed files
 export async function gitCommitAll(
     dir: string = process.cwd(),
-    message: string = "commit all changes"
+    message: string = "commit changes [nolog]"
 ) {
     const git = Git(dir);
     const status = await git.status();

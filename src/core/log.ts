@@ -23,55 +23,55 @@ export class Task {
     constructor(
         public task: string,
         public context?: string,
-        public info?: string,
+        public version?: string,
         public longTask: boolean = false
     ) {
         this.start = dayjs();
     }
 
-    static async Short(task: string, context?: string, info?: string) {
-        await Task.Log(task, "success", context, info);
+    static async Short(task: string, context?: string, version?: string) {
+        await Task.Log(task, "success", context, version);
     }
 
-    static async Long(task: string, context?: string, info?: string) {
-        const _task = new Task(task, context, info, true);
+    static async Long(task: string, context?: string, version?: string) {
+        const _task = new Task(task, context, version, true);
         await _task.update("success", "starting...");
         _task.shouldReplaceLastMessage = true;
         return _task;
     }
 
-    async update(status: Status, context?: string, info?: string) {
+    async update(status: Status, context?: string, version?: string) {
         await Task.Log(
             this.task,
             status,
             context ?? this.context,
-            info ?? this.longTask
+            version ?? this.longTask
                 ? `${dayjs().diff(this.start, "ms")} ms`
-                : this.info,
+                : this.version,
             this.shouldReplaceLastMessage
         );
         this.shouldReplaceLastMessage = false;
     }
 
-    async success(context?: string, info?: string) {
-        await this.update("success", context, info);
+    async success(context?: string, version?: string) {
+        await this.update("success", context, version);
     }
 
-    failure(context?: Error, info?: string): Promise<void>;
-    failure(context?: string, info?: string): Promise<void>;
-    async failure(context?: Error | string, info?: string): Promise<void> {
+    danger(context?: Error, version?: string): Promise<void>;
+    danger(context?: string, version?: string): Promise<void>;
+    async danger(context?: Error | string, version?: string): Promise<void> {
         if (context instanceof Error) {
-            await this.update("danger", context.toString(), info);
+            await this.update("danger", context.toString(), version);
         } else {
-            await this.update("danger", context, info);
+            await this.update("danger", context, version);
         }
     }
 
-    async inform(context?: string, info?: string) {
-        await this.update("info", context, info);
+    async info(context?: string, version?: string) {
+        await this.update("info", context, version);
     }
 
-    async warn(context?: string, info?: string) {
+    async warning(context?: string, info?: string) {
         await this.update("warning", context, info);
     }
 

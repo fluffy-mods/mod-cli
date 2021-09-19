@@ -3,7 +3,7 @@ import { CommandModule } from "yargs";
 
 import { Version } from "../core/context.js";
 import { getContext, updateModInfo } from "../tasks/context.js";
-import { updateReadme } from "../tasks/description.js";
+import { getWorkshopDescription, updateReadme } from "../tasks/description.js";
 import { buildModSolution, formatProject, updateProjectReferences } from "../tasks/dotnet.js";
 import { updateChangeLog, updateContributions } from "../tasks/git.js";
 import { clearDirectory, copyDirectory } from "../tasks/io.js";
@@ -104,6 +104,9 @@ async function updateHandler(args: UpdateOptions) {
     await updateContributions(context);
     await updateModInfo(context);
     await updateReadme(context);
+
+    // check workshop description length
+    await getWorkshopDescription(context);
 
     if (!args["no-build"]) {
         if (args["update-refs"]) {

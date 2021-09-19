@@ -14,10 +14,30 @@ export type DistributionEnvironment = "workshop" | "github" | "unity";
 export async function getWorkshopDescription(
     context: Context
 ): Promise<string> {
-    return await Promise.all([getDescription(context), getFooter(context)])
+    const description = await Promise.all([
+        getDescription(context),
+        getFooter(context),
+    ])
         .then((parts) => parts.join("\n"))
         .then(applyImageHeaders)
         .then(markdownToSteamBBCode);
+
+    const descriptionLength = description.length;
+    if (descriptionLength >= 7800) {
+        await Task.Log(
+            "workshop description",
+            "danger",
+            `description is ${description.length} characters long, the maximum allowed length is 8000 characters.`
+        );
+    } else if (descriptionLength >= 7000) {
+        await Task.Log(
+            "workshop description",
+            "warning",
+            `description is ${description.length} characters long, the maximum allowed length is 8000 characters.`
+        );
+    }
+
+    return description;
 }
 
 export async function getGithubDescription(context: Context): Promise<string> {
@@ -60,7 +80,7 @@ export function applyImageHeaders(content: string): string {
     return content.replace(/##? (.*?)(?:\n|$)/gm, (_, title) => {
         const trimmed = title.trim();
         const encoded = encodeURIComponent(title);
-        return `![${trimmed}](https://banners.karel-kroeze.nl/title/${encoded}.png)  `;
+        return `![${trimmed}](https://headers.karel-kroeze.nl/title/${encoded}.png)  `;
     });
 }
 

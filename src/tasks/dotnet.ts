@@ -14,7 +14,7 @@ export async function buildModSolution({
     const sln = await findDown("*.sln", baseDir);
 
     if (!sln) {
-        await task.warn(`no solution found, skipping build`);
+        await task.warning(`no solution found, skipping build`);
         return;
     }
 
@@ -34,7 +34,7 @@ export async function buildModSolution({
         const command = `dotnet build ${args.join(" ")} "${sln}"`;
         exec(command, async (err, stdout, stderr) => {
             if (err) {
-                await task.failure(stderr || stdout);
+                await task.danger(stderr || stdout);
                 return reject(err);
             }
             await task.success(`${relative(baseDir, sln)} [${buildTarget}]`);
@@ -47,14 +47,14 @@ export async function updateProjectReferences({ build: { baseDir } }: Context) {
     const task = await Task.Long(`update project references`);
     const solution = await findDown("*.sln", baseDir);
     if (!solution) {
-        await task.warn("no solution found, skipping update");
+        await task.warning("no solution found, skipping update");
         return;
     }
     return new Promise<void>((resolve, reject) => {
         const command = `dotnet outdated -u "${solution}"`;
         exec(command, async (err, stdout, stderr) => {
             if (err) {
-                await task.failure(stderr || stdout);
+                await task.danger(stderr || stdout);
                 return reject(err);
             }
             await task.success(basename(solution));
@@ -67,15 +67,15 @@ export async function formatProject({ build: { baseDir } }: Context) {
     const task = await Task.Long(`apply code formatting`);
     const solution = await findDown("*.sln", baseDir);
     if (!solution) {
-        await task.warn("no solution found, skipping format");
+        await task.warning("no solution found, skipping format");
         return;
     }
 
     return new Promise<void>((resolve, reject) => {
-        const command = `dotnet format -w -s:info -a:warn "${solution}"`;
+        const command = `dotnet format -w -s:warn -a:warn "${solution}"`;
         exec(command, async (err, stdout, stderr) => {
             if (err) {
-                await task.failure(stderr || stdout);
+                await task.danger(stderr || stdout);
                 return reject(err);
             }
             await task.success(basename(solution));

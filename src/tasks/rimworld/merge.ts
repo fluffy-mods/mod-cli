@@ -43,7 +43,7 @@ export async function mergeVersions({
         abouts.push({ _version: version, ...about });
         const unversionedFiles = new Set<string>();
 
-        await task.inform(`${version}: merging ${files.length} files`);
+        await task.info(`${version}: merging ${files.length} files`);
 
         for (let file of files) {
             if (!isVersioned(file, version)) {
@@ -62,7 +62,7 @@ export async function mergeVersions({
         }
 
         if (debug && unversionedFiles.size) {
-            await task.warn(
+            await task.warning(
                 `${version}: ${[...unversionedFiles].join(", ")} not versioned.`
             );
         }

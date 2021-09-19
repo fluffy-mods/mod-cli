@@ -60,7 +60,7 @@ export async function updateAbout(context: Context): Promise<void> {
         await writeAbout(about, aboutPath);
         await task.success(path.relative(context.build.baseDir, aboutPath));
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
         throw err;
     }
 }

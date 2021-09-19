@@ -4,12 +4,17 @@ import { CommandModule } from "yargs";
 import { createArchive } from "../tasks/archive.js";
 import { getContext, updateModInfo } from "../tasks/context.js";
 import { updateReadme } from "../tasks/description.js";
-import { buildModSolution, formatProject, updateProjectReferences } from "../tasks/dotnet.js";
+import {
+    buildModSolution,
+    formatProject,
+    updateProjectReferences,
+} from "../tasks/dotnet.js";
 import {
     checkUncommitedChanges,
     checkUnpushedCommits,
-    createAndPushReleaseCommit,
     createGitHubRelease,
+    createReleaseCommit,
+    gitPush,
     updateChangeLog,
     updateContributions,
 } from "../tasks/git.js";
@@ -86,18 +91,20 @@ async function releaseHandler(args: ReleaseOptions) {
     await checkUnpushedCommits(context, args.force);
     if (!args["skip-bump"]) {
         await bumpVersion(context, args.major ? "major" : "minor");
+    } else {
+        await bumpVersion(context, "build");
     }
     await updateChangeLog(context);
     await updateContributions(context);
     await updateModInfo(context);
     await updateProjectReferences(context);
-    await formatProject(context);
+    // await formatProject(context);
     await buildModSolution(context);
     if (context.game.name === "RimWorld") {
         await updateAbout(context);
     }
     await updateReadme(context);
-    await createAndPushReleaseCommit(context);
+    await createReleaseCommit(context);
 
     if (!args["skip-steam"]) {
         await clearDirectory(context.build.targetDir);
@@ -119,6 +126,8 @@ async function releaseHandler(args: ReleaseOptions) {
             context.build.targetDir,
             context.game.exclude
         );
+
+        await gitPush(context.build.baseDir);
         await createArchive(context);
         await createGitHubRelease(context, args);
     }

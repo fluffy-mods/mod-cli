@@ -20,10 +20,10 @@ export async function createArchive({
         // open archive
         var archive = archiver("zip", { store: true });
         archive.on("warning", async (warning) => {
-            await task.warn(warning.message);
+            await task.warning(warning.message);
         });
         archive.on("error", async (err) => {
-            await task.failure(err);
+            await task.danger(err);
             process.exit(-1);
         });
 
@@ -31,7 +31,7 @@ export async function createArchive({
         var out = fs.createWriteStream(build.archivePath);
         out.on("close", async (err: any) => {
             if (err) {
-                await task.failure(err);
+                await task.danger(err);
                 process.exit(-1);
             }
             await task.success(

@@ -34,6 +34,6 @@ export async function updatePreview(
         );
         await task.success(undefined, previewPath);
     } catch (e) {
-        await task.failure(e);
+        await task.danger(e);
     }
 }

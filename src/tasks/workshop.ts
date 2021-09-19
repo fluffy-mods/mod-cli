@@ -41,7 +41,7 @@ export async function steamWorkshopUpdate(context: Context): Promise<void> {
                 }
             });
         } catch (err) {
-            await task.failure(err.message, err.toString());
+            await task.danger(err.message, err.toString());
             reject(err);
         }
     });

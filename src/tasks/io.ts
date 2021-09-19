@@ -9,7 +9,7 @@ export async function clearDirectory(dir: string) {
         await fs.rm(dir, { force: true, recursive: true });
         await task.success();
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
     }
 }
 
@@ -28,6 +28,6 @@ export async function copyDirectory(
         });
         await task.success();
     } catch (err) {
-        await task.failure(err);
+        await task.danger(err);
     }
 }
